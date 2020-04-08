@@ -114,17 +114,28 @@ public class Join extends Operator {
      */
     protected Tuple fetchNext() throws TransactionAbortedException, DbException {
         // some code goes here
-        while(currLeft!=null || child1.hasNext()){
+        while(currLeft!=null || child1.hasNext()){ //outer loop for r1
             if(currLeft==null){
                 currLeft = child1.next();
             }
-            while (child2.hasNext()){
+            while (child2.hasNext()){ //inner loop for r2
                 Tuple currRight = child2.next();
-
-
+                if(jp.filter(currLeft,currRight)){ //if tuples match, create new tuple
+                    Tuple retTuple = new Tuple(this.getTupleDesc()); //merge Tuple descriptions
+                    for(int i = 0; i <currLeft.getTupleDesc().numFields(); i++){
+                        retTuple.setField(i, currLeft.getField(i));
+                    }
+                    int buffer = currLeft.getTupleDesc().numFields(); //needs to set fields of right tuple after the space taken up by left tuple
+                    for(int i = 0; i <currRight.getTupleDesc().numFields(); i++){
+                        retTuple.setField(i+buffer, currRight.getField(i));
+                    }
+                    return retTuple;
+                }
             }
-
+            currLeft=null; //ASK MIRO
+            child2.rewind();
         }
+        return null;
     }
 
     @Override
