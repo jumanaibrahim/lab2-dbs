@@ -128,7 +128,6 @@ public class SystemTestUtil {
                 Assert.fail("expected tuples does not contain: " + t);
             }
         }
-//        iterator.hasNext();
         iterator.close();
 
         if (!copy.isEmpty()) {

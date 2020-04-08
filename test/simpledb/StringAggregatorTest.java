@@ -14,6 +14,8 @@ public class StringAggregatorTest extends SimpleDbTestBase {
   int width1 = 2;
   OpIterator scan1;
   int[][] count = null;
+  Object[][] min = null;
+  Object[][] max = null;
 
   /**
    * Initialize each unit test
@@ -33,7 +35,31 @@ public class StringAggregatorTest extends SimpleDbTestBase {
       { 1, 1 },
       { 1, 2 },
       { 1, 3 },
-      { 1, 3, 3, 1 }
+      { 1, 3, 3, 1 },
+      { 1, 3, 3, 2 },
+      { 1, 3, 3, 3 },
+      { 1, 3, 3, 3, 5, 1 }
+    };
+
+    // verify how the results progress after a few merges
+    this.min = new Object[][] {
+        { 1, "a" },
+        { 1, "a" },
+        { 1, "a" },
+        { 1, "a", 3, "d" },
+        { 1, "a", 3, "d" },
+        { 1, "a", 3, "d" },
+        { 1, "a", 3, "d", 5, "g" }
+    };
+
+    this.max = new Object[][] {
+        { 1, "a" },
+        { 1, "b" },
+        { 1, "c" },
+        { 1, "c", 3, "d" },
+        { 1, "c", 3, "e" },
+        { 1, "c", 3, "f" },
+        { 1, "c", 3, "f", 5, "g" }
     };
 
   }
@@ -46,6 +72,36 @@ public class StringAggregatorTest extends SimpleDbTestBase {
     StringAggregator agg = new StringAggregator(0, Type.INT_TYPE, 1, Aggregator.Op.COUNT);
 
     for (int[] step : count) {
+      agg.mergeTupleIntoGroup(scan1.next());
+      OpIterator it = agg.iterator();
+      it.open();
+      TestUtil.matchAllTuples(TestUtil.createTupleList(width1, step), it);
+    }
+  }
+
+  /**
+   * Test String.mergeTupleIntoGroup() and iterator() over a MIN
+   */
+  @Test public void mergeMin() throws Exception {
+    scan1.open();
+    StringAggregator agg = new StringAggregator(0, Type.INT_TYPE, 1, Aggregator.Op.MIN);
+
+    for (Object[] step : min) {
+      agg.mergeTupleIntoGroup(scan1.next());
+      OpIterator it = agg.iterator();
+      it.open();
+      TestUtil.matchAllTuples(TestUtil.createTupleList(width1, step), it);
+    }
+  }
+
+  /**
+   * Test String.mergeTupleIntoGroup() and iterator() over a MAX
+   */
+  @Test public void mergeMax() throws Exception {
+    scan1.open();
+    StringAggregator agg = new StringAggregator(0, Type.INT_TYPE, 1, Aggregator.Op.MAX);
+
+    for (Object[] step : max) {
       agg.mergeTupleIntoGroup(scan1.next());
       OpIterator it = agg.iterator();
       it.open();

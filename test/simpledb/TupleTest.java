@@ -64,3 +64,4 @@ public class TupleTest extends SimpleDbTestBase {
         return new JUnit4TestAdapter(TupleTest.class);
     }
 }
+

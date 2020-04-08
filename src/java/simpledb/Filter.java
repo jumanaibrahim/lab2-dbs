@@ -18,31 +18,42 @@ public class Filter extends Operator {
      * @param child
      *            The child operator
      */
+
+    private Predicate pred;
+    private OpIterator child;
+
     public Filter(Predicate p, OpIterator child) {
         // some code goes here
+        this.pred = p;
+        this.child = child;
     }
 
     public Predicate getPredicate() {
         // some code goes here
-        return null;
+        return pred;
     }
 
     public TupleDesc getTupleDesc() {
         // some code goes here
-        return null;
+        return child.getTupleDesc();
     }
 
     public void open() throws DbException, NoSuchElementException,
             TransactionAbortedException {
         // some code goes here
+        super.open();
+        child.open();
     }
 
     public void close() {
         // some code goes here
+        super.close();
+        child.close();
     }
 
     public void rewind() throws DbException, TransactionAbortedException {
         // some code goes here
+        child.rewind();
     }
 
     /**
@@ -57,18 +68,32 @@ public class Filter extends Operator {
     protected Tuple fetchNext() throws NoSuchElementException,
             TransactionAbortedException, DbException {
         // some code goes here
+        while(child.hasNext()){
+            Tuple ret = child.next();
+            if(pred.filter(ret)){
+                return ret;
+            }
+        }
         return null;
     }
 
+/**
+ * @return return the children DbIterators of this operator. If there is
+ *         only one child, return an array of only one element.
+ **/ //from Operator.java
     @Override
     public OpIterator[] getChildren() {
         // some code goes here
-        return null;
+        return new OpIterator[]{child};
     }
-
+/**
+ * Set the children(child) of this operator. If the operator has only one
+ * child, children[0] should be used.
+ * */ //from Operator.java
     @Override
     public void setChildren(OpIterator[] children) {
         // some code goes here
+        child = children[0];
     }
 
 }

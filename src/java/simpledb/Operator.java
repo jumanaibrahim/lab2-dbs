@@ -76,7 +76,7 @@ public abstract class Operator implements OpIterator {
      * and children[1] should be used.
      * 
      * 
-     * @param children
+     * @param childrentrue
      *            the DbIterators which are to be set as the children(child) of
      *            this operator
      * */
