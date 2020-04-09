@@ -1,9 +1,9 @@
-bin/
-dist/
-log
-.idea/
+#bin/
+#dist/
+#log
+#.idea/
 out/
-simple1.db
+#simple1.db
 .DS_Store
 
 
