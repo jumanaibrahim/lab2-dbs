@@ -22,6 +22,11 @@ public class IntegerAggregator implements Aggregator {
      *            the aggregation operator
      */
 
+    private int gbfield;
+    private Type gbfieldtype;
+    private int afield;
+
+
     public IntegerAggregator(int gbfield, Type gbfieldtype, int afield, Op what) {
         // some code goes here
     }

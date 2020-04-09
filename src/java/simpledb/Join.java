@@ -114,6 +114,7 @@ public class Join extends Operator {
      */
     protected Tuple fetchNext() throws TransactionAbortedException, DbException {
         // some code goes here
+//        Tuple currLeft = null;
         while(currLeft!=null || child1.hasNext()){ //outer loop for r1
             if(currLeft==null){
                 currLeft = child1.next();
@@ -132,7 +133,7 @@ public class Join extends Operator {
                     return retTuple;
                 }
             }
-            currLeft=null; //ASK MIRO
+            currLeft=null;
             child2.rewind();
         }
         return null;
