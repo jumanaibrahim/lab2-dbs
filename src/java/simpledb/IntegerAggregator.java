@@ -57,7 +57,6 @@ public class IntegerAggregator implements Aggregator {
     public void mergeTupleIntoGroup(Tuple tup) {
         // some code goes here
         Field tupGBField = null;
-        int retValue = 0;
 
         if(gbfield==Aggregator.NO_GROUPING){
             aggregates.put("",new ArrayList<>());
@@ -112,36 +111,111 @@ public class IntegerAggregator implements Aggregator {
         private ArrayList<Tuple> ret = new ArrayList<Tuple>();
         private Iterator<Tuple> it;
 
-        public AggregateIter(){
-            switch (what){
-                case MIN:
-                    break;
-                case MAX:
-                    break;
-                case SUM:
-                    for(Map.Entry<Object, ArrayList<Integer>> i : aggregates.entrySet()){
-                        Tuple entryTup = new Tuple(this.getTupleDesc());
+        public AggregateIter() {
+            for (Map.Entry<Object, ArrayList<Integer>> i : aggregates.entrySet()) {
+                Tuple entryTup = new Tuple(this.getTupleDesc());
+                int val = 0;
+                switch (what) {
+                    case MIN:
+                        val = Collections.min(i.getValue());
+                        break;
+                    case MAX:
+                        val = Collections.max(i.getValue());
+                        break;
+                    case SUM:
+                        val = i.getValue().stream().mapToInt(Integer::intValue).sum();
+                        break;
+                    case AVG:
+                        int size = i.getValue().size();
                         int sum = i.getValue().stream().mapToInt(Integer::intValue).sum();
-                        if(!(gbfieldtype==null)){
-                            if(gbfieldtype==Type.INT_TYPE){
-                                entryTup.setField(0, new IntField((Integer) i.getKey()));
-                            } else{entryTup.setField(0, new StringField((String) i.getKey() , i.getKey().toString().length()));}
-//                            entryTup.setField(0, (Field) i.getKey());
-                            entryTup.setField(1, new IntField(sum));
-                        } else{entryTup.setField(1,new IntField(sum));}
-                        ret.add(entryTup);
+                        val = sum / size;
+                        break;
+                    case COUNT:
+                        val = i.getValue().size();
+                        break;
+                    case SUM_COUNT:
+                        break;
+                    case SC_AVG:
+                        break;
+                }
+                if (gbfieldtype != null) {
+                    if (gbfieldtype == Type.INT_TYPE) {
+                        entryTup.setField(0, new IntField((Integer) i.getKey()));
+                    } else {
+                        entryTup.setField(0, new StringField((String) i.getKey(), i.getKey().toString().length()));
                     }
-                    break;
-                case AVG:
-                    break;
-                case COUNT:
-                    break;
-                case SUM_COUNT:
-                    break;
-                case SC_AVG:
-                    break;
+                }
+                entryTup.setField(1, new IntField(val));
+                ret.add(entryTup);
             }
         }
+//            switch (what){
+//                case MIN:
+//                    for(Map.Entry<Object, ArrayList<Integer>> i : aggregates.entrySet()){
+//                        Tuple entryTup = new Tuple(this.getTupleDesc());
+//                        int min = Collections.min(i.getValue());
+//                        if(!(gbfieldtype==null)){
+//                            if(gbfieldtype==Type.INT_TYPE){
+//                                entryTup.setField(0, new IntField((Integer) i.getKey()));
+//                            } else{entryTup.setField(0, new StringField((String) i.getKey() , i.getKey().toString().length()));}
+////                            entryTup.setField(0, (Field) i.getKey());
+//                            entryTup.setField(1, new IntField(min));
+//                        } else{entryTup.setField(1,new IntField(min));}
+//                        ret.add(entryTup);
+//                    }
+//                    break;
+//                case MAX:
+//                    for(Map.Entry<Object, ArrayList<Integer>> i : aggregates.entrySet()){
+//                        Tuple entryTup = new Tuple(this.getTupleDesc());
+//                        int max = Collections.max(i.getValue());
+//                        if(!(gbfieldtype==null)){
+//                            if(gbfieldtype==Type.INT_TYPE){
+//                                entryTup.setField(0, new IntField((Integer) i.getKey()));
+//                            } else{entryTup.setField(0, new StringField((String) i.getKey() , i.getKey().toString().length()));}
+////                            entryTup.setField(0, (Field) i.getKey());
+//                            entryTup.setField(1, new IntField(max));
+//                        } else{entryTup.setField(1,new IntField(max));}
+//                        ret.add(entryTup);
+//                    }
+//                    break;
+//                case SUM:
+//                    for(Map.Entry<Object, ArrayList<Integer>> i : aggregates.entrySet()){
+//                        Tuple entryTup = new Tuple(this.getTupleDesc());
+//                        int sum = i.getValue().stream().mapToInt(Integer::intValue).sum();
+//                        if(!(gbfieldtype==null)){
+//                            if(gbfieldtype==Type.INT_TYPE){
+//                                entryTup.setField(0, new IntField((Integer) i.getKey()));
+//                            } else{entryTup.setField(0, new StringField((String) i.getKey() , i.getKey().toString().length()));}
+////                            entryTup.setField(0, (Field) i.getKey());
+//                            entryTup.setField(1, new IntField(sum));
+//                        } else{entryTup.setField(1,new IntField(sum));}
+//                        ret.add(entryTup);
+//                    }
+//                    break;
+//                case AVG:
+//                    for(Map.Entry<Object,ArrayList<Integer>> i : aggregates.entrySet()){
+//                        Tuple entryTup = new Tuple(this.getTupleDesc());
+//                        int size = i.getValue().size();
+//                        int sum = i.getValue().stream().mapToInt(Integer::intValue).sum();
+//                        int avg = sum/size;
+//                        if(!(gbfieldtype==null)){
+//                            if(gbfieldtype==Type.INT_TYPE){
+//                                entryTup.setField(0,new IntField((Integer) i.getKey()));
+//                            } else{entryTup.setField(0, new StringField((String) i.getKey() , i.getKey().toString().length()));}
+//                            entryTup.setField(1,new IntField(avg));
+//                        } else {entryTup.setField(1,new IntField(avg));}
+//                        ret.add(entryTup);
+//                    }
+//                    break;
+//                case COUNT:
+//
+//                    break;
+//                case SUM_COUNT:
+//                    break;
+//                case SC_AVG:
+//                    break;
+//            }
+//        }
         //make distinction between grouped/ungrouped: based on key being empty string.
         //for each value in map, create tuple based on the 'what'
 
