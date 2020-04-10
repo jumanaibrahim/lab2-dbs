@@ -63,6 +63,7 @@ public class IntegerAggregator implements Aggregator {
         } else {tupGBField = tup.getField(gbfield);} //get the field from the index
 
         if(gbfieldtype == Type.INT_TYPE){
+            assert tupGBField != null;
             Integer groupKey = ((IntField) tupGBField).getValue();
             if(!aggregates.containsKey(groupKey)){
                 aggregates.put(groupKey, new ArrayList<>());
@@ -71,12 +72,13 @@ public class IntegerAggregator implements Aggregator {
             aggregates.get(groupKey).add(value);
 
         } else{
+            assert tupGBField != null;
             String groupKey = ((StringField) tupGBField).getValue();
             if(!aggregates.containsKey(groupKey)){
                 aggregates.put(groupKey, new ArrayList<>());
             }
-            String value = ((StringField) tup.getField(afield)).getValue();
-            aggregates.get(groupKey).add(Integer.valueOf(value));
+            Integer value = ((IntField) tup.getField(afield)).getValue();
+            aggregates.get(groupKey).add(value);
         }
 
 //        int value = ((IntField) tup.getField(afield)).getValue(); //get value of integer in aggregate field

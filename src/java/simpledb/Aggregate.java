@@ -163,8 +163,17 @@ public class Aggregate extends Operator {
      */
     public TupleDesc getTupleDesc() {
 	// some code goes here
+        if(gfield!= Aggregator.NO_GROUPING){
+            Type[] types = {child.getTupleDesc().getFieldType(gfield), child.getTupleDesc().getFieldType(afield)};
+            String[] names = {groupFieldName(), aggregateFieldName()};
+            return new TupleDesc(types,names);
+        } else{
+            Type[] types = {child.getTupleDesc().getFieldType(afield)};
+            String[] names = {aggregateFieldName()};
+            return new TupleDesc(types,names);
+        }
 
-	return null;
+//	return null;
     }
 
     public void close() {
