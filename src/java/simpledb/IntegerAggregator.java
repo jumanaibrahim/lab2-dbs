@@ -59,7 +59,10 @@ public class IntegerAggregator implements Aggregator {
         Field tupGBField = null;
 
         if(gbfield==Aggregator.NO_GROUPING){
-            aggregates.put("",new ArrayList<>());
+            if(!aggregates.containsKey("")){
+                aggregates.put("",new ArrayList<>());
+            }
+            aggregates.get("").add(((IntField) tup.getField(afield)).getValue()); //ASK MIRO IF THIS IS WHERE YOU ADD STUFF
         } else {tupGBField = tup.getField(gbfield);} //get the field from the index
 
         if(gbfieldtype == Type.INT_TYPE){
@@ -71,7 +74,7 @@ public class IntegerAggregator implements Aggregator {
             Integer value = ((IntField) tup.getField(afield)).getValue();
             aggregates.get(groupKey).add(value);
 
-        } else{
+        } else if (gbfieldtype == Type.STRING_TYPE){
             assert tupGBField != null;
             String groupKey = ((StringField) tupGBField).getValue();
             if(!aggregates.containsKey(groupKey)){
@@ -81,12 +84,13 @@ public class IntegerAggregator implements Aggregator {
             aggregates.get(groupKey).add(value);
         }
 
+
 //        int value = ((IntField) tup.getField(afield)).getValue(); //get value of integer in aggregate field
 //
 //        if(!aggregates.containsKey(tupGBField)){
 //            ArrayList<Integer> values = new ArrayList<Integer>();
 //            values.add(value); //add value to values list
-//            aggregates.put(tupGBField,values);
+//            aggregates.put(tupGBField,values);ArrayList<Integer> data = i.getValue();
 //        } else {
 //            aggregates.get(tupGBField).add(value);
 //        }
@@ -140,14 +144,17 @@ public class IntegerAggregator implements Aggregator {
                     case SC_AVG:
                         break;
                 }
-                if (gbfieldtype != null) {
+                if(gbfieldtype == null){
+                    entryTup.setField(0, new IntField(val));
+                }
+                else{
                     if (gbfieldtype == Type.INT_TYPE) {
                         entryTup.setField(0, new IntField((Integer) i.getKey()));
                     } else {
                         entryTup.setField(0, new StringField((String) i.getKey(), i.getKey().toString().length()));
                     }
+                    entryTup.setField(1, new IntField(val));
                 }
-                entryTup.setField(1, new IntField(val));
                 ret.add(entryTup);
             }
         }

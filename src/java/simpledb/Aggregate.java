@@ -124,7 +124,7 @@ public class Aggregate extends Operator {
         while (child.hasNext()){
             ag.mergeTupleIntoGroup(child.next());
         }
-        child.close();
+//        child.close();
         iter = ag.iterator();
         iter.open();
 

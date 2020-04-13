@@ -42,7 +42,11 @@ public class StringAggregator implements Aggregator {
         Field tupGBField = null;
 
         if(gbfield==Aggregator.NO_GROUPING){
-            agg.put("",new ArrayList<>());
+            if(!agg.containsKey("")){
+                agg.put("",new ArrayList<>());
+            }
+            agg.get("").add(((StringField) tup.getField(afield)).getValue());
+             //IS THIS CORRECT AS WELL????
         } else {tupGBField = tup.getField(gbfield);} //get the field from the index
 
         if(gbfieldType == Type.INT_TYPE){
@@ -116,19 +120,25 @@ public class StringAggregator implements Aggregator {
                     case SC_AVG:
                         break;
                 }
-                if(gbfieldType!=null){
-                    if(gbfieldType == Type.INT_TYPE){
+
+                if(gbfieldType == null){
+                    if(what== Op.COUNT){
+                        entryTup.setField(0,new IntField(val));
+                    } else{
+                        entryTup.setField(0,new StringField(retStr, retStr.length()));
+                    }
+                } else {
+                    if (gbfieldType == Type.INT_TYPE) {
                         entryTup.setField(0, new IntField((Integer) i.getKey()));
                     } else {
                         entryTup.setField(0, new StringField((String) i.getKey(), i.getKey().toString().length()));
                     }
+                    if (what == Op.COUNT) {
+                        entryTup.setField(1, new IntField(val));
+                    } else {
+                        entryTup.setField(1, new StringField(retStr, retStr.length()));
+                    }
                 }
-                if(what==Op.COUNT){
-                    entryTup.setField(1, new IntField(val));
-                } else {
-                    entryTup.setField(1, new StringField(retStr, retStr.length()));
-                }
-
                 ret.add(entryTup);
             }
         }
