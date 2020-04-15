@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5810821f-fdbd-47ef-9a31-9b7bdaf0cbd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/Aggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/Aggregate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/IntegerAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/IntegerAggregator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/SeqScan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/SeqScan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/StringAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/StringAggregator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/BufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/BufferPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/Delete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/HeapFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/HeapFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/HeapPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/HeapPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/Insert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/Insert.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,10 +38,10 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="JUnit.AggregateTest (1)">
-    <configuration name="AggregateTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.InsertTest (1)">
+    <configuration name="BufferPoolWriteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="lab2-dbs" />
       <extension name="coverage">
         <pattern>
@@ -48,13 +50,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.AggregateTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.BufferPoolWriteTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AggregateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DeleteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="lab2-dbs" />
       <extension name="coverage">
         <pattern>
@@ -63,13 +65,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb.systemtest" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.AggregateTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.DeleteTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IntegerAggregatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HeapFileWriteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="lab2-dbs" />
       <extension name="coverage">
         <pattern>
@@ -78,13 +80,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.IntegerAggregatorTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.HeapFileWriteTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ScanTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InsertTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="lab2-dbs" />
       <extension name="coverage">
         <pattern>
@@ -93,13 +95,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb.systemtest" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.ScanTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.InsertTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StringAggregatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InsertTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="lab2-dbs" />
       <extension name="coverage">
         <pattern>
@@ -108,7 +110,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.StringAggregatorTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.InsertTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -116,11 +118,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AggregateTest (1)" />
-        <item itemvalue="JUnit.StringAggregatorTest" />
-        <item itemvalue="JUnit.AggregateTest" />
-        <item itemvalue="JUnit.IntegerAggregatorTest" />
-        <item itemvalue="JUnit.ScanTest" />
+        <item itemvalue="JUnit.InsertTest (1)" />
+        <item itemvalue="JUnit.DeleteTest" />
+        <item itemvalue="JUnit.InsertTest" />
+        <item itemvalue="JUnit.BufferPoolWriteTest" />
+        <item itemvalue="JUnit.HeapFileWriteTest" />
       </list>
     </recent_temporary>
   </component>
@@ -138,6 +140,7 @@
       <workItem from="1586800753243" duration="4140000" />
       <workItem from="1586804928294" duration="33000" />
       <workItem from="1586805004261" duration="3535000" />
+      <workItem from="1586934689393" duration="1530000" />
     </task>
     <servers />
   </component>
@@ -149,22 +152,22 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="760" y="316" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1586681300739" />
-    <state width="1807" height="382" key="GridCell.Tab.0.bottom" timestamp="1586808648117">
+    <state width="1807" height="201" key="GridCell.Tab.0.bottom" timestamp="1586936120942">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648117" />
-    <state width="1807" height="382" key="GridCell.Tab.0.center" timestamp="1586808648116">
+    <state width="1807" height="201" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120942" />
+    <state width="1807" height="201" key="GridCell.Tab.0.center" timestamp="1586936120942">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648116" />
-    <state width="1807" height="382" key="GridCell.Tab.0.left" timestamp="1586808648116">
+    <state width="1807" height="201" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120942" />
+    <state width="1807" height="201" key="GridCell.Tab.0.left" timestamp="1586936120941">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648116" />
-    <state width="1807" height="382" key="GridCell.Tab.0.right" timestamp="1586808648116">
+    <state width="1807" height="201" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120941" />
+    <state width="1807" height="201" key="GridCell.Tab.0.right" timestamp="1586936120942">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648116" />
+    <state width="1807" height="201" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120942" />
     <state width="1807" height="382" key="GridCell.Tab.1.bottom" timestamp="1586808648117">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -181,10 +184,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="1807" height="382" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648117" />
-    <state x="465" y="136" width="1024" height="845" key="SettingsEditor" timestamp="1586805107731">
+    <state x="975" y="27" width="900" height="928" key="SettingsEditor" timestamp="1586935261628">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="465" y="136" width="1024" height="845" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1586805107731" />
+    <state x="975" y="27" width="900" height="928" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1586935261628" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
