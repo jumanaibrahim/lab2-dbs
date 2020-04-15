@@ -1,91 +1,79 @@
 package simpledb;
 
-import java.nio.Buffer;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.io.*;
+import java.util.*;
 
-public class HeapFileIterator implements DbFileIterator{
+public class HeapFileIterator implements DbFileIterator {
+    private TransactionId tid;
+    private File f;
+    private HeapFile heapf;
+    private int pageNumCursor;
+    private Iterator<Tuple> iterator;
+    private HeapPage page;
+    private int TableId;
 
-    TransactionId tid;
-    int currPageno;
-    int maxPageno;
-    HeapFile hf;
-    HeapPage hp;
-    Iterator<Tuple> hpIt;
-    boolean opened;
 
-    public HeapFileIterator(HeapFile hf, TransactionId tid){
-        this.tid = tid;
-        this.hf = hf;
-        this.maxPageno = hf.numPages();
-        this.opened = false;
-
-        this.currPageno = 0;
+    public HeapFileIterator(TransactionId tid, File file, int tableid){
+        //initialize private variables
+        tid = tid;
+        f = file;
+        TableId = tableid;
+        heapf = new HeapFile(f, Database.getCatalog().getTupleDesc(TableId)); //gets thw Heap file with the passed in table id
     }
+    //close iterator
+    public void close(){
+        iterator = null;
+        page = null;
+        heapf = null;
 
-    @Override
-    public void open() throws DbException, TransactionAbortedException {
-        //Move and create iterator to beginning.
-        HeapPageId pid = new HeapPageId(hf.getId(), this.currPageno);
-        this.hp = (HeapPage) Database.getBufferPool().getPage(tid, pid, Permissions.READ_WRITE);;
-        this.hpIt = hp.iterator();
-        this.opened = true;
+
     }
+    //opens the iterator
+    public void open()   throws DbException, TransactionAbortedException{
 
-    @Override
-    public boolean hasNext() throws DbException, TransactionAbortedException {
-        if (!this.opened){
-            return false;
+        pageNumCursor = 0; //first page of the file
+        //getting the first page from teh file
+        page = (HeapPage)Database.getBufferPool().getPage(tid, (PageId) new HeapPageId(heapf.getId(), pageNumCursor), Permissions.READ_ONLY);
+//
+        iterator = page.iterator();
+    }
+    public boolean hasNext()throws DbException, TransactionAbortedException
+    {
+        //
+        if(iterator == null) return false; //if iterator is null return fqlse
+        if(iterator.hasNext()) return true;//if the iterator has not reached the end of the page return true
+        if(pageNumCursor + 1 >=  heapf.numPages()) return false; //if all the pages have been read return false
+        while(pageNumCursor + 1 <  heapf.numPages() && !iterator.hasNext()){ //this loop finds the next page with any tuples in them
+            // move on to the next page
+            pageNumCursor = pageNumCursor +1;
+            //get the bext page and its iterator
+            page = (HeapPage)Database.getBufferPool().getPage(tid, (PageId) new HeapPageId(heapf.getId(), pageNumCursor), Permissions.READ_ONLY);
+            iterator = page.iterator();
         }
+        return this.hasNext();
 
-        int tempPageno = this.currPageno;
-        if(this.hpIt.hasNext()){ //This page has more tuples
-            return true;
-        }
-        tempPageno ++;
-        while(tempPageno < maxPageno){ //Check next page if it has more.
-            HeapPageId pid = new HeapPageId(hf.getId(),tempPageno);
-            HeapPage tempHp = (HeapPage) Database.getBufferPool().getPage(tid, pid, Permissions.READ_WRITE);
-            Iterator<Tuple> tempIt = tempHp.iterator();
-            if(tempIt.hasNext()){
-                return true;
-            }
-            tempPageno ++;
-        }
-        return false;
     }
 
-    @Override
-    public Tuple next() throws DbException, TransactionAbortedException, NoSuchElementException {
-        if (!this.opened){
-            throw new NoSuchElementException("Iterator not opened");
-        }
-        while (true){
-            Tuple tuple = this.hpIt.next();
-            if(tuple != null){
-                return tuple;
-            }
-            this.currPageno ++;
-            if(this.currPageno >= this.maxPageno){
-                return null;
-            }
-            HeapPageId pid = new HeapPageId(hf.getId(), this.currPageno);
-            this.hp = (HeapPage) Database.getBufferPool().getPage(tid, pid, Permissions.READ_WRITE);
-            if(this.hp == null){
-                return null;
-            }
-            this.hpIt = this.hp.iterator();
-        }
+    public Tuple next() throws DbException, TransactionAbortedException, NoSuchElementException{
+
+        if(iterator == null) //if iterator is null throws an exception
+            throw new NoSuchElementException();
+        return iterator.next();
+
+//         if (iterator.hasNext()){
+//              return iterator.next();
+//         }
+//         else {
+//             throw new NoSuchElementException();
+//         }
+
     }
 
-    @Override
-    public void rewind() throws DbException, TransactionAbortedException {
-        this.currPageno = 0;
-        this.open();
+    public void rewind() throws DbException, TransactionAbortedException{
+        pageNumCursor =0; // go back to page number one
+        //get page
+        page = (HeapPage)Database.getBufferPool().getPage(tid, (PageId) new HeapPageId(heapf.getId(), pageNumCursor), Permissions.READ_ONLY);
+        iterator = page.iterator();
     }
 
-    @Override
-    public void close() {
-        this.opened = false;
-    }
 }

@@ -26,6 +26,7 @@ public class BufferPool {
      other classes. BufferPool should use the numPages argument to the
      constructor instead. */
     public static final int DEFAULT_PAGES = 50;
+    Queue<PageId> LRU = new LinkedList<>();
 
     private int numPages;
     private HashMap<PageId, Page> cache;
@@ -72,16 +73,19 @@ public class BufferPool {
     public Page getPage(TransactionId tid, PageId pid, Permissions perm)
             throws TransactionAbortedException, DbException {
         if(cache.containsKey(pid)){
+            LRU.add(pid);
             return(cache.get(pid));
         } else {
             //Eviction done in later labs
             if (cache.size() >= numPages ){
-                System.out.println("Not implemented cache eviction");
-                return null;
+//                System.out.println("Not implemented cache eviction");
+                evictPage();
+
             }
             DbFile file = Database.getCatalog().getDatabaseFile(pid.getTableId());
             Page newPage = file.readPage(pid);
             cache.put(pid, newPage);
+            LRU.add(pid);
             return newPage;
         }
     }
@@ -189,8 +193,15 @@ public class BufferPool {
      *     break simpledb if running in NO STEAL mode.
      */
     public synchronized void flushAllPages() throws IOException {
-        // some code goes here
-        // not necessary for lab1
+        try{
+            for (PageId key : cache.keySet()) {
+                flushPage(key);
+            }
+
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -203,8 +214,9 @@ public class BufferPool {
      are removed from the cache so they can be reused safely
      */
     public synchronized void discardPage(PageId pid) {
-        // some code goes here
-        // not necessary for lab1
+        Page page = cache.get(pid);
+        cache.remove(page);
+        page.markDirty(false, null);
     }
 
     /**
@@ -212,8 +224,11 @@ public class BufferPool {
      * @param pid an ID indicating the page to flush
      */
     private synchronized  void flushPage(PageId pid) throws IOException {
-        // some code goes here
-        // not necessary for lab1
+        //get file using catalog and write to disk
+        Page page = cache.get(pid);
+        HeapFile hf = (HeapFile) Database.getCatalog().getDatabaseFile(pid.getTableId());
+        hf.writePage(page);
+        page.markDirty(false, null);
     }
 
     /** Write all pages of the specified transaction to disk.
@@ -228,8 +243,20 @@ public class BufferPool {
      * Flushes the page to disk to ensure dirty pages are updated on disk.
      */
     private synchronized  void evictPage() throws DbException {
-        // some code goes here
-        // not necessary for lab1
+        PageId pid = LRU.peek();
+        Page evictPage;
+        if (pid != null){
+            evictPage = cache.get(pid);
+            try{
+                flushPage(pid);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            cache.remove(pid);
+            LRU.remove(pid);
+        }
+
     }
 
 }

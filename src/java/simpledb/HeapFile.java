@@ -67,8 +67,8 @@ public class HeapFile implements DbFile {
 
     // see DbFile.java for javadocs
     public Page readPage(PageId pid) {
-        System.out.println("PID: " + pid.getPageNumber());
-        System.out.println("PID - numpages: " + numPages());
+//        System.out.println("PID: " + pid.getPageNumber());
+//        System.out.println("PID - numpages: " + numPages());
         if(pid.getPageNumber() < 0 || pid.getPageNumber() >= this.numPages()){
             throw new IllegalArgumentException("Page number does not exist in this file");
         }
@@ -201,8 +201,8 @@ public class HeapFile implements DbFile {
     // see DbFile.java for javadocs
     public DbFileIterator iterator(TransactionId tid) {
 //        HeapFileIterator it = new HeapFileIterator(this, tid);
-//        return new HeapFileIterator(tid, file, this.getId()); // look at the class
-        return new HeapFileIterator(this, tid);
+        return new HeapFileIterator(tid, file, this.getId()); // look at the class
+//        return new HeapFileIterator(this, tid);
 
     }
 

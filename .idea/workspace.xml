@@ -4,10 +4,8 @@
     <list default="true" id="5810821f-fdbd-47ef-9a31-9b7bdaf0cbd9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/BufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/BufferPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/Delete.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/HeapFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/HeapFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/HeapPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/HeapPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/Insert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/Insert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/HeapFileIterator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/HeapFileIterator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +38,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="JUnit.InsertTest (1)">
+  <component name="RunManager" selected="JUnit.EvictionTest">
     <configuration name="BufferPoolWriteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="lab2-dbs" />
       <extension name="coverage">
@@ -71,16 +69,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HeapFileWriteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EvictionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="lab2-dbs" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="simpledb.*" />
+          <option name="PATTERN" value="simpledb.systemtest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.HeapFileWriteTest" />
+      <option name="PACKAGE_NAME" value="simpledb.systemtest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.EvictionTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -118,11 +116,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.InsertTest (1)" />
+        <item itemvalue="JUnit.EvictionTest" />
         <item itemvalue="JUnit.DeleteTest" />
+        <item itemvalue="JUnit.InsertTest (1)" />
         <item itemvalue="JUnit.InsertTest" />
         <item itemvalue="JUnit.BufferPoolWriteTest" />
-        <item itemvalue="JUnit.HeapFileWriteTest" />
       </list>
     </recent_temporary>
   </component>
@@ -140,7 +138,8 @@
       <workItem from="1586800753243" duration="4140000" />
       <workItem from="1586804928294" duration="33000" />
       <workItem from="1586805004261" duration="3535000" />
-      <workItem from="1586934689393" duration="1530000" />
+      <workItem from="1586934689393" duration="2229000" />
+      <workItem from="1586952144913" duration="2387000" />
     </task>
     <servers />
   </component>
@@ -152,44 +151,53 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="760" y="316" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1586681300739" />
-    <state width="1807" height="201" key="GridCell.Tab.0.bottom" timestamp="1586936120942">
+    <state width="1807" height="408" key="GridCell.Tab.0.bottom" timestamp="1586965105416">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="201" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120942" />
-    <state width="1807" height="201" key="GridCell.Tab.0.center" timestamp="1586936120942">
+    <state width="1807" height="408" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1586965105416" />
+    <state width="1807" height="408" key="GridCell.Tab.0.center" timestamp="1586965105415">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="201" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120942" />
-    <state width="1807" height="201" key="GridCell.Tab.0.left" timestamp="1586936120941">
+    <state width="1807" height="408" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1586965105415" />
+    <state width="1807" height="408" key="GridCell.Tab.0.left" timestamp="1586965105415">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="201" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120941" />
-    <state width="1807" height="201" key="GridCell.Tab.0.right" timestamp="1586936120942">
+    <state width="1807" height="408" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1586965105415" />
+    <state width="1807" height="408" key="GridCell.Tab.0.right" timestamp="1586965105416">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="201" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1586936120942" />
-    <state width="1807" height="382" key="GridCell.Tab.1.bottom" timestamp="1586808648117">
+    <state width="1807" height="408" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1586965105416" />
+    <state width="1807" height="411" key="GridCell.Tab.1.bottom" timestamp="1586952343147">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648117" />
-    <state width="1807" height="382" key="GridCell.Tab.1.center" timestamp="1586808648117">
+    <state width="1807" height="411" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1586952343147" />
+    <state width="1807" height="411" key="GridCell.Tab.1.center" timestamp="1586952343147">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648117" />
-    <state width="1807" height="382" key="GridCell.Tab.1.left" timestamp="1586808648117">
+    <state width="1807" height="411" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1586952343147" />
+    <state width="1807" height="411" key="GridCell.Tab.1.left" timestamp="1586952343147">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648117" />
-    <state width="1807" height="382" key="GridCell.Tab.1.right" timestamp="1586808648117">
+    <state width="1807" height="411" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1586952343147" />
+    <state width="1807" height="411" key="GridCell.Tab.1.right" timestamp="1586952343147">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="382" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1586808648117" />
+    <state width="1807" height="411" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1586952343147" />
     <state x="975" y="27" width="900" height="928" key="SettingsEditor" timestamp="1586935261628">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="975" y="27" width="900" height="928" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1586935261628" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/test/simpledb/systemtest/EvictionTest.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="entryTup" />
